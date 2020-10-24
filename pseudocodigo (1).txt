@@ -1,0 +1,183 @@
+
+importar sys
+
+clase Articulo:
+   
+    metodo inicializador(estemismo,codigo,nombre,cantidad,precio):
+        estemismo.__codigo=codigo
+        estemismo.__nombre=nombre
+        estemismo.__cantidad=cantidad
+        estemismo.__precio=precio
+      
+    metodo imprimirDatosArticulo(estemismo):
+        
+        Imprimir(f"Codigo: {estemismo.__codigo}")
+        Imprimir(f"Nombre: {estemismo.__nombre}")
+        Imprimir(f"Cantidad: {estemismo.__cantidad}")
+        Imprimir(f"Precio: {estemismo.__precio}")
+     
+     
+    metodo getId(estemismo):
+        
+        retornar estemismo.__codigo
+        
+ 
+clase Stock:
+   
+    metodo inicializador(estemismo):
+        estemismo.__stock=lista()
+      
+    metodo añadirArticulo(estemismo,articulo):
+        
+        estemismo.__stock.agregar(articulo)
+       
+    metodo eliminarArticulo(estemismo,codigo):
+        
+        estemismo.indices=lista()
+        
+        Para i en estemismo.__stock:
+            estemismo.indices.agregar(i.getId())
+            
+        Para i en estemismo.indices:
+            si i==codigo:
+                indice=estemismo.indices.obtenerindice(i)
+         
+        estemismo.__stock.borrar(indice)
+        
+        
+        
+      
+    metodo mostrarArticulos(estemismo):
+        
+        Para i en estemismo.__stock:
+            Imprimir("------------------------------------------------")
+            
+            i.imprimirDatosArticulo()
+            
+            
+           
+    metodo checarIds(estemismo):
+        
+        estemismo.__ids=lista()
+        Para i en estemismo.__stock:
+            
+            estemismo.__ids.agregar(i.getId())
+           
+        retornar estemismo.__ids
+     
+    metodo articulos(estemismo):
+        
+        retornar estemismo.__stock
+ 
+clase Menu:
+    
+    metodo inicializador(estemismo):
+       
+        estemismo.mostrarMenu()
+      
+    metodo mostrarMenu(estemismo):
+       
+        Imprimir('Sistema De Alta y Baja de Articulos')
+        Imprimir("1)Añadir Articulo\n2)Eliminar Articulo\n3)Imprimir Articulos\n4)Salir")
+        Mientras Verdadero:
+            intentar:
+                respuesta = Entero(Leer())
+            si hay excepcion:
+                Imprimir("Valor no admintido.(Solo enteros)")
+            en cambio:
+                Terminar Ciclo
+        si respuesta==1:
+            avanzar=Verdadero
+           
+            Mientras avanzar:
+                Imprimir("Codigo del producto")
+
+                intentar:
+                    id=Entero(Leer())
+                si hay excepcion:
+                    Imprimir("Solo enteros.")
+                en cambio:
+                    si Longitud(stock.articulos())==0:
+                        Terminar Ciclo
+                    si Longitud(stock.articulos())>0:
+                        Para i en stock.checarIds():
+                            si i==id:
+                                Imprimir("Ya hay un producto con este codigo. Intente con otro")
+                                Volver al Principio del ciclo
+                            en cambio:
+                                avanzar=Falso
+            name=Leer("Nombre del producto\n")
+            Mientras Verdadero:
+                Imprimir("Cantidad de producto")
+                intentar:
+                    quantity=Entero(Leer())
+                si hay excepcion:
+                    Imprimir("Solo enteros.")
+                en cambio:
+                    Terminar Ciclo
+            Mientras Verdadero:
+                Imprimir("Precio del producto")
+                intentar:
+                    price = Entero(Leer())
+                si hay excepcion:
+                    Imprimir("Solo enteros.")
+                en cambio:
+                    Terminar Ciclo
+		
+            Mientras Verdadero:
+                opcion=Leer("¿Desea guardar los datos? si/no")
+                si opcion.lower()=="si":
+                    articulo=Articulo(id,name,quantity,price)
+                    stock.añadirArticulo(articulo)
+                    Imprimir("Articulo guardado con exito.")
+                    Terminar Ciclo
+                en cambio:
+                    Imprimir("Intenta de nuevo")
+	
+        si respuesta==2:
+            #imprimimos los articulos
+            stock.mostrarArticulos()
+            Mientras Verdadero:
+                intentar:
+
+                    eleccion = Entero(Leer("introduce el codido del articulo que desea borrar\n 0 para regresar \n"))
+                si hay excepcion:
+                    Imprimir("Valor no valido")
+                en cambio:
+                    si eleccion==0:
+                        Terminar Ciclo
+
+                    en cambio:
+                        intentar:
+                            stock.eliminarArticulo(eleccion)
+                        si hay excepcion:
+                            
+                            Imprimir("Codigo no existe, o valor no es admitido, intente de nuevo")
+                            Volver al Principio del ciclo
+                        en cambio:
+                            
+                            Imprimir("Articulo eliminado con exito.")
+                            Terminar Ciclo
+
+
+
+        si respuesta==3:
+            stock.mostrarArticulos()
+            
+        si respuesta==4:
+            #metodo que finaliza el programa con el metodo exit de la libreria sys
+            sys.exit()
+        en cambio:
+            Imprimir("Estimado usuario, la opcion no existe")
+
+
+
+
+
+nueva instancia de Stock
+stock=Stock()
+
+
+Mientras Verdadero:.
+    nueva instancia de Menu
+    menu=Menu()
